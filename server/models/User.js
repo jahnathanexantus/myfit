@@ -32,6 +32,11 @@ User.init(
 			allowNull: false,
 			// defaultValue: "John "
 		},
+		
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false
+			},
 
 		
 	},

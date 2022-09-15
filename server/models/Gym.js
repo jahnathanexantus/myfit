@@ -28,11 +28,10 @@ Gym.init(
 			// defaultValue: "John "
 		},
 
-		
-		gym_id:{
+		user_id:{
             type:DataTypes.INTEGER,
             references:{
-                model: 'gym',
+                model: 'user',
                 key: 'id'
             }
         }

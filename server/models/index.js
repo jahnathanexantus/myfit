@@ -3,16 +3,16 @@ const Gym = require('./Gym');
 
 
 User.hasOne(Gym,{
-    foreignKey: "advocate_id",
+    foreignKey: "user_id",
     onDelete: 'CASCADE',
 })
 
 
 
 Gym.belongsTo(User,{
-    foreignKey:"advocate_id",
+    foreignKey:"user_id",
 
 })
 
 
-module.exports = {Advocate,Inventory}
+module.exports = {User,Gym}
