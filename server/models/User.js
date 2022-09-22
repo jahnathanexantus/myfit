@@ -1,7 +1,7 @@
 // get model and datatype from sequelize
 const { Model, DataTypes } = require("sequelize");
 // get sequelize from config
-
+var bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
 
 // create class
@@ -48,5 +48,13 @@ User.init(
 		modelName: "user",
 	}
 );
+// User.method.generateHash = function(password) {
+// 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+// };
+
+// User.methods.validPassword = function(password) {
+//     return bcrypt.compareSync(password, this.local.password);
+// };
+
 
 module.exports = User;
