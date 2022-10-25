@@ -4,6 +4,18 @@ const router = require("express").Router();
 const { User, Gym } = require("../../models");
 const bcrypt = require("bcryptjs");
 
+
+
+router.post("/", async (req, res) => {
+	try {
+		const userData = await User.create(req.body);
+		console.log(userData);
+		res.status(200).json(userData);
+	} catch (err) {
+		res.status(400).json({ message: "this shit don't work" });
+	}
+});
+
 router.post("/signup", async (req, res) => {
 	try {
 		const newUser = req.body;
@@ -17,11 +29,13 @@ router.post("/signup", async (req, res) => {
 	}
 });
 
-
 router.get("/login", async (req, res) => {
 	try {
 		// we search the DB for a user with the provided email
-		const userData = await User.findOne({include:[{model:Gym}]},{ where: { email: req.body.email } });
+		const userData = await User.findOne(
+			{ include: [{ model: Gym }] },
+			{ where: { email: req.body.email } }
+		);
 		if (!userData) {
 			// the error message shouldn't specify if the login failed because of wrong email or password
 			res.status(404).json({ message: "Login failed. Please try again!" });
@@ -56,6 +70,18 @@ router.get("/", async (req, res) => {
 	}
 });
 
+router.post("/follow", async (req, res) => {
+	try {
+		const currentUser = await User.findOne({ where: { firstname: "jle" } });
+		const toFollowUser = await User.findOne({ where: { firstname: "danny" } });
+		await currentUser.addUser(toFollowUser);
+		res.status(200).json(currentUser);
+	} catch (err) {
+		console.log(err);
+		res.status(400).json({ message: "this shit isn't working" });
+	}
+});
+
 router.get("/:id", async (req, res) => {
 	try {
 		const userData = await User.findByPk(req.params.id, {
@@ -68,7 +94,7 @@ router.get("/:id", async (req, res) => {
 		}
 		res.status(200).json(userData);
 	} catch (err) {
-		res.status(400).json(err);
+		res.status(400).json({ message: "not working" });
 	}
 });
 
